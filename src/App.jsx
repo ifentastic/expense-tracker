@@ -1,4 +1,5 @@
 import Budget from "./components/Budget";
+import ExpenseList from "./components/ExpenseList";
 import ExpenseTotal from "./components/ExpenseTotal";
 import Remaining from "./components/Remaining";
 
@@ -18,6 +19,12 @@ function App() {
         <div className="relative sm:flex-grow sm:flex-1">
           <ExpenseTotal />
         </div>  
+      </div>
+      <h3 className="mt-3">Expenses</h3>
+      <div className="flex flex-wrap mt-3">
+        <div className="relative sm:flex-grow sm:flex-1">
+          <ExpenseList />
+        </div>
       </div>
     </div>
   );
