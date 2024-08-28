@@ -1,9 +1,11 @@
 import Budget from "./components/Budget";
 import ExpenseList from "./components/ExpenseList";
 import ExpenseTotal from "./components/ExpenseTotal";
+import NewExpense from "./components/NewExpense";
 import Remaining from "./components/Remaining";
 
 function App() {
+  
   return (
     <div className="container mx-auto sm:px-4">
       <h1 className="mt-3">My Budget Planner</h1>
@@ -25,6 +27,9 @@ function App() {
         <div className="relative sm:flex-grow sm:flex-1">
           <ExpenseList />
         </div>
+      </div>
+      <div className="relative sm:flex-grow sm:flex-1">
+          <NewExpense />
       </div>
     </div>
   );
