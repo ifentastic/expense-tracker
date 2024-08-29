@@ -29,8 +29,7 @@ export default function AddExpenseForm({ onSaveExpenseData, onCancel }) {
     return (
         <form onSubmit={submitHandler}>
             <div className="flex flex-wrap">
-                <div className="relative sm:flex-grow sm:flex-1">
-                    {/* Label and input for name and cost */}
+                <div className="w-full">
                     <label htmlFor="name">Name</label>
                     <input
                         required
@@ -41,7 +40,7 @@ export default function AddExpenseForm({ onSaveExpenseData, onCancel }) {
                         onChange={nameChangeHandler}
                     />
                 </div>
-                <div className="relative sm:flex-grow sm:flex-1">
+                <div className="w-full">
                     <label htmlFor="cost">Cost</label>
                     <input
                         required
@@ -53,21 +52,20 @@ export default function AddExpenseForm({ onSaveExpenseData, onCancel }) {
                     />
                 </div>
             </div>
-            <div className="flex flex-wrap">
-                <div className="relative sm:flex-grow sm:flex-1">
-                    <button
-                        className="inline-block align-middle text-center select-none border font-bold whitespace-nowrap rounded py-1 px-3 leading-normal no-underline bg-white text-blue-600 mt-3 border-none mr-auto"
-                        onClick={onCancel}
-                    >
-                        Cancel
-                    </button>
-                    <button 
-                        type="submit"
-                        className="inline-block align-middle text-center select-none border font-bold whitespace-nowrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600 mt-3"
-                    >
-                        Submit
-                    </button>
-                </div>
+            <div className="flex justify-end">
+                <button
+                    type="submit"
+                    className="inline-block align-middle text-center font-bold select-none border-none whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-white text-blue-600 hover:bg-white mt-3"
+                    onClick={onCancel}
+                >
+                    Cancel
+                </button>
+                <button
+                    type="submit"
+                    className="inline-block align-middle text-center select-none border font-bold whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600 mt-3"
+                >
+                    Submit
+                </button>
             </div>
         </form>
     );
