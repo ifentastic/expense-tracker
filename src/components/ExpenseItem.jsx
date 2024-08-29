@@ -1,4 +1,8 @@
 export default function ExpenseItem({ id, name, cost, onRemove }) {
+    function handleRemoveExpense() {
+        onRemove(id);
+    }
+    
     return (
       <li className="relative block py-3 px-6 -mb-px border border-r-0 border-l-0 border-gray-300 no-underline flex justify-between items-center" >
         {name} {/* List expense item */}
@@ -8,7 +12,7 @@ export default function ExpenseItem({ id, name, cost, onRemove }) {
             </span>
             <button 
                 className="bg-blue-500 hover:bg-blue-600 text-white font-bold px-4 py-2 rounded" 
-                onClick={onRemove}
+                onClick={handleRemoveExpense}
             >
                 Remove
             </button>
