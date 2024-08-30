@@ -1,14 +1,6 @@
-import { useState } from "react";
 import ExpenseItem from "./ExpenseItem";
 
-export default function ExpenseList() {
-    // Dummy list of expenses as initial state
-    const [expenses, setExpenses] = useState([
-        { id: 1, name: "Shopping", cost: 40 },
-        { id: 2, name: "Car Service", cost: 400 },
-        { id: 3, name: "Salaries", cost: 4000 }
-    ]);
-
+export default function ExpenseList({ expenses, setExpenses }) {
     function removeExpenseHandler(id) {
         setExpenses(expenses.filter(expense => expense.id !== id));
     }
