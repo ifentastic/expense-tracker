@@ -1,9 +1,9 @@
 import { useState } from "react";
-import Budget from "./components/Budget";
-import ExpenseList from "./components/ExpenseList";
-import ExpenseTotal from "./components/ExpenseTotal";
-import NewExpense from "./components/NewExpense";
-import RemainingBudget from "./components/RemainingBudget";
+import Budget from "./components/Budget/Budget";
+import RemainingBudget from "./components/Budget/RemainingBudget";
+import ExpenseList from "./components/Expenses/ExpenseList";
+import ExpenseTotal from "./components/Expenses/ExpenseTotal";
+import NewExpense from "./components/Expenses/NewExpense";
 
 function App() {
   // Dummy list of expenses as initial state
@@ -22,7 +22,7 @@ function App() {
   function addExpenseHandler(expense) {
     setExpenses((prevExpenses) => {
       return [...prevExpenses, expense];
-    })
+    });
   }
   
   return (
@@ -48,7 +48,7 @@ function App() {
         </div>
       </div>
       <div className="relative sm:flex-grow sm:flex-1">
-          <NewExpense onAddExpense={addExpenseHandler} />
+          <NewExpense onAddExpense={addExpenseHandler} budget={budget} />
       </div>
     </div>
   );
