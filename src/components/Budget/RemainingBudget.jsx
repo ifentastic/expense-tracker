@@ -1,4 +1,9 @@
-export default function RemainingBudget({ expenses, budget }) {
+import { useContext } from "react";
+import { ExpenseContext } from "../context/ExpenseContext";
+
+export default function RemainingBudget() {
+    const { expenses, budget } = useContext(ExpenseContext);
+    
     const totalExpenses = expenses.reduce((total, item) => {
         return total += item.cost;
     }, 0);
