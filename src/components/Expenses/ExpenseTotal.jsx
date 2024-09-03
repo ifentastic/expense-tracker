@@ -1,4 +1,9 @@
-export default function ExpenseTotal({ expenses }) {
+import { useContext } from "react";
+import { ExpenseContext } from "../context/ExpenseContext";
+
+export default function ExpenseTotal() {
+    const { expenses } = useContext(ExpenseContext);
+    
     const total = expenses.reduce((total, item) => {
         return total += item.cost;
     }, 0);
