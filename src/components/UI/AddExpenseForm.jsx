@@ -4,7 +4,7 @@ import { ExpenseContext } from "../context/ExpenseContext";
 import ErrorModal from "./ErrorModal";
 
 export default function AddExpenseForm() {
-    const { budget, dispatch } = useContext(ExpenseContext);
+    const { budget, expenses, dispatch } = useContext(ExpenseContext);
     
     // Manage state of entered expense name, cost, editing, and error
     const [enteredName, setEnteredName] = useState("");
@@ -29,9 +29,19 @@ export default function AddExpenseForm() {
             cost: +enteredCost
         };
 
+        const totalSpent = expenses.reduce((total, item) => {
+            return total += item.cost;
+        }, 0);
+
         // Check if cost exceeds the budget
         if (expenseData.cost > budget) {
             setError("Cost exceeds the budget! Please remove the expense or reduce the cost.");
+            return;
+        }
+
+        // Check if total amount spent exceeds the budget
+        if (totalSpent + expenseData.cost > budget) {
+            setError("Total expenses exceed the budget! Please adjust your expenses.");
             return;
         }
         // Save expense data and clear it upon submission
