@@ -1,6 +1,14 @@
-export default function ExpenseItem({ id, name, cost, onRemove }) {
+import { useContext } from "react";
+import { ExpenseContext } from "../context/ExpenseContext";
+
+export default function ExpenseItem({ id, name, cost }) {
+    const { dispatch } = useContext(ExpenseContext);
+    
     function handleRemoveExpense() {
-        onRemove(id);
+        dispatch({
+            type: "DELETE_EXPENSE",
+            payload: id
+        });
     }
     
     return (
