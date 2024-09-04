@@ -16,6 +16,15 @@ export function ExpenseReducer(state, action) {
                     (expense) => expense.id !== action.payload
                 )
             };
+        case "EDIT_EXPENSE":
+            return {
+                ...state,
+                expenses: state.expenses.map((expense) => (
+                    expense.id === action.payload.id
+                        ? { ...expense, ...action.payload }
+                        : expense
+                ))
+            };
         case "EDIT_BUDGET":
             return {
                 ...state,
