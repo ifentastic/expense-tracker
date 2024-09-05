@@ -20,13 +20,17 @@ export default function Budget() {
         });
         setIsEditing(false);
     }
+
+    function handleCancel() {
+        setIsEditing(false);
+    }
     
     return (
         <div 
             className="relative px-3 py-3 mb-4 border rounded bg-gray-300 border-gray-400 text-gray-800 p-6 flex items-center justify-between"
         > {/* gray background */}
             {isEditing ? (
-                <EditBudget onSave={handleSave} budget={budget} />
+                <EditBudget onSave={handleSave} budget={budget} onCancel={handleCancel} />
             ) : (
                 <ViewBudget onEdit={handleEdit} budget={budget} />
             )}
