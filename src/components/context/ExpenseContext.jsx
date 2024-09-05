@@ -52,7 +52,7 @@ export const ExpenseContext = createContext();
 // Accepts the children, the nested components
 export function ExpenseProvider({ children }) {
     // Set up app state by taking a reducer and an initial state
-    const [state, dispatch] = useReducer(ExpenseReducer, initialState)
+    const [state, dispatch] = useReducer(ExpenseReducer, initialState);
 
     // Return context. Pass in values
     return (
