@@ -1,12 +1,13 @@
 import { useState } from "react";
 
-export default function EditBudget({ budget, onSave }) {
+export default function EditBudget({ budget, onSave, onCancel }) {
     // use initial budget to edit
     const [value, setValue] = useState(budget);
 
     function handleEditValue(event) {
         setValue(event.target.value);
     }
+
     return (
         <>
             <input
@@ -19,7 +20,14 @@ export default function EditBudget({ budget, onSave }) {
             />
             <button
                 type="button"
-                className="inline-block align-middle text-center select-none border-none font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600"
+                className="inline-block align-middle text-center select-none border-none font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-gray-500 text-white hover:bg-gray-600 mr-3"
+                onClick={onCancel}
+            >
+                Cancel
+            </button>
+            <button
+                type="button"
+                className="inline-block align-middle text-center select-none border-none font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-green-500 text-white hover:bg-green-600"
                 onClick={() => onSave(value)}
             >
                 Save
