@@ -37,11 +37,14 @@ export function ExpenseReducer(state, action) {
 
 // Set initial state when app loads
 const initialState = {
-    budget: 2000,
+    budget: 3000,
     expenses: [
-        { id: uuidv4(), name: "Shopping", cost: 40 },
-        { id: uuidv4(), name: "Car Service", cost: 400 },
-        { id: uuidv4(), name: "Salaries", cost: 1400 }
+        { id: uuidv4(), description: "Lawn care", cost: 125, category: "Home" },
+        { id: uuidv4(), description: "Cell phone", cost: 254, category: "Utilities" },
+        { id: uuidv4(), description: "Gas", cost: 40, category: "Auto" },
+        { id: uuidv4(), description: "2 bags of apples", cost: 4, category: "Groceries" },
+        { id: uuidv4(), description: "Child support", cost: 500, category: "Child care" },
+        { id: uuidv4(), description: "Dental care", cost: 50, category: "Medical insurance" },
     ]
 }
 
