@@ -31,16 +31,26 @@ export default function ExpenseList() {
             {/* Iterate over expense list and display an expense item if there are search results */}
             {/* Otherwise display a message */}
             {filteredExpenses.length > 0 ? (
-                <ul className="flex flex-col pl-0 mb-0 border rounded border-gray-300">
-                    {filteredExpenses.map((expense) => (
-                        <ExpenseItem 
-                            key={expense.id} 
-                            id={expense.id} 
-                            name={expense.name} 
-                            cost={expense.cost}
-                        />
-                    ))}
-                </ul>
+                <table className="w-full max-w-full mb-4 bg-transparent">
+                    <thead>
+                        <tr>
+                            <th scope="col">Description</th>
+                            <th scope="col">Cost</th>
+                            <th scope="col">Category</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {filteredExpenses.map((expense) => (
+                            <ExpenseItem
+                                key={expense.id}
+                                id={expense.id}
+                                description={expense.description}
+                                cost={expense.cost}
+                                category={expense.category}
+                            />
+                        ))}
+                    </tbody>
+                </table>
             ) : (
                 <p className="text-black text-center">No expenses found.</p>
             )}            
