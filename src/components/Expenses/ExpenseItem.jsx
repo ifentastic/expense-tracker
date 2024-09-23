@@ -48,61 +48,6 @@ export default function ExpenseItem({ id, description, cost, category }) {
     }
     
     return (
-    //   <li className="relative block py-3 px-6 -mb-px border border-r-0 border-l-0 border-gray-300 no-underline flex justify-between items-center" >
-    //     {description} {/* List expense item */}
-    //     {isEditing ? (
-    //         <div>
-    //         <input
-    //             type="text"
-    //             value={editedDescription}
-    //             onChange={handleEditDescription}
-    //             placeholder="Expense Description"
-    //         />
-    //         <input
-    //             type="number"
-    //             value={editedCost}
-    //             onChange={handleEditCost}
-    //             placeholder="Expense Cost"
-    //         />
-    //         <input
-    //             type="text"
-    //             value={editedCategory}
-    //             onChange={handleEditCategory}
-    //             placeholder="Expense Category"
-    //         />
-    //         <button
-    //             className="bg-gray-500 hover:bg-gray-600 text-white font-bold px-4 py-2 rounded mr-3"
-    //             onClick={handleCancelEdit}
-    //         >
-    //             Cancel
-    //         </button>
-    //         <button
-    //             className="bg-green-500 hover:bg-green-600 text-white font-bold px-4 py-2 rounded"
-    //             onClick={handleSaveExpense}
-    //         >
-    //             Save
-    //         </button>
-    //     </div>
-    //     ) : (
-    //         <div className="flex justify-end items-center">
-    //             <span className="inline-block p-1 text-center font-semibold text-sm align-baseline leading-none rounded bg-blue-500 text-white hover:bg-blue-600 py-1 px-3 mr-3">
-    //                 ${cost} {/* Cost of the expense */}
-    //             </span>
-    //             <button
-    //                 className="bg-blue-500 hover:bg-blue-600 text-white font-bold px-4 py-2 rounded mr-3"
-    //                 onClick={handleEditExpense}
-    //             >
-    //                 Edit
-    //             </button>
-    //             <button 
-    //                 className="bg-red-500 hover:bg-red-600 text-white font-bold px-4 py-2 rounded" 
-    //                 onClick={handleDeleteExpense}
-    //             >
-    //                 Remove
-    //             </button>
-    //         </div> 
-    //     )}    
-    //   </li>
         <tr>
             <td className="border-b-2">
                 {isEditing ? (
