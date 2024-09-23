@@ -46,8 +46,7 @@ const initialState = {
         { id: uuidv4(), description: "Child support", cost: 500, category: "Childcare" },
         { id: uuidv4(), description: "Dental care", cost: 50, category: "Medical" },
         { id: uuidv4(), description: "1 Spotify subscription", cost: 12, category: "Entertainment" },
-    ],
-    filteredExpenses: []
+    ]
 }
 
 // Create context — what our components import and use to access the state
