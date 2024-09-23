@@ -26,8 +26,7 @@ export default function AddExpenseForm() {
         const expenseData = {
             id: uuidv4(),
             description: enteredDescription,
-            cost: +enteredCost,
-            category: enteredCategory
+            cost: +enteredCost
         };
 
         const totalSpent = expenses.reduce((total, item) => {
@@ -52,7 +51,6 @@ export default function AddExpenseForm() {
         });
         setEnteredDescrption("");
         setEnteredCost("");
-        setEnteredCategory("");
         setIsEditing(false);
     }
 
