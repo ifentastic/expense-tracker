@@ -6,14 +6,14 @@ import ErrorModal from "./ErrorModal";
 export default function AddExpenseForm() {
     const { budget, expenses, dispatch } = useContext(ExpenseContext);
     
-    // Manage state of entered expense name, cost, editing, and error
-    const [enteredName, setEnteredName] = useState("");
+    // Manage state of entered expense description, cost, editing, and error
+    const [enteredDescription, setEnteredDescrption] = useState("");
     const [enteredCost, setEnteredCost] = useState("");
     const [isEditing, setIsEditing] = useState(false);
     const [error, setError] = useState(null);
 
-    function nameChangeHandler(event) {
-        setEnteredName(event.target.value);
+    function descrptionChangeHandler(event) {
+        setEnteredDescrption(event.target.value);
     }
 
     function costChangeHandler(event) {
@@ -25,8 +25,9 @@ export default function AddExpenseForm() {
         event.preventDefault(); // cancel operation that caused event to be dispatched
         const expenseData = {
             id: uuidv4(),
-            name: enteredName,
-            cost: +enteredCost
+            description: enteredDescription,
+            cost: +enteredCost,
+            category: enteredCategory
         };
 
         const totalSpent = expenses.reduce((total, item) => {
@@ -49,8 +50,9 @@ export default function AddExpenseForm() {
             type: "ADD_EXPENSE",
             payload: expenseData
         });
-        setEnteredName("");
+        setEnteredDescrption("");
         setEnteredCost("");
+        setEnteredCategory("");
         setIsEditing(false);
     }
 
@@ -72,14 +74,14 @@ export default function AddExpenseForm() {
                 <form onSubmit={submitHandler}>
                     <div className="flex flex-wrap">
                         <div className="w-full">
-                            <label htmlFor="name">Name</label>
+                            <label htmlFor="description">Description</label>
                             <input
                                 required
                                 type="text"
                                 className="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded"
                                 id="name"
-                                value={enteredName}
-                                onChange={nameChangeHandler}
+                                value={enteredDescription}
+                                onChange={descrptionChangeHandler}
                             />
                         </div>
                         <div className="w-full">
@@ -92,6 +94,24 @@ export default function AddExpenseForm() {
                                 value={enteredCost}
                                 onChange={costChangeHandler}
                             />
+                        </div>
+                        <div className="w-full">
+                            <label htmlFor="category">Category</label>
+                            <select 
+                                name="" 
+                                id="" 
+                                className=
+                                    "bg-white border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm w-full"
+                            >
+                                <option value=""></option>
+                                <option value="home">Home</option>
+                                <option value="utilities">Utilities</option>
+                                <option value="auto">Auto</option>
+                                <option value="groceries">Groceries</option>
+                                <option value="childcare">Childcare</option>
+                                <option value="medical">Medical</option>
+                                <option value="entertainment">Entertainment</option>
+                            </select>
                         </div>
                     </div>
                     <div className="flex justify-end">
