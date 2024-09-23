@@ -10,7 +10,7 @@ export default function ExpenseItem({ id, description, cost, category }) {
     const [editedCost, setEditedCost] = useState(cost);
     const [editedCategory, setEditedCategory] = useState(category);
     
-    function handleRemoveExpense() {
+    function handleDeleteExpense() {
         dispatch({
             type: "DELETE_EXPENSE",
             payload: id
@@ -36,7 +36,7 @@ export default function ExpenseItem({ id, description, cost, category }) {
     function handleSaveExpense() {
         dispatch({
             type: "EDIT_EXPENSE",
-            payload: { id, description: editedDescription, cost: +editedCost }
+            payload: { id, description: editedDescription, cost: +editedCost, category: editedCategory }
         });
         setIsEditing(false);
     }
@@ -96,7 +96,7 @@ export default function ExpenseItem({ id, description, cost, category }) {
     //             </button>
     //             <button 
     //                 className="bg-red-500 hover:bg-red-600 text-white font-bold px-4 py-2 rounded" 
-    //                 onClick={handleRemoveExpense}
+    //                 onClick={handleDeleteExpense}
     //             >
     //                 Remove
     //             </button>
@@ -104,7 +104,7 @@ export default function ExpenseItem({ id, description, cost, category }) {
     //     )}    
     //   </li>
         <tr>
-            <td className="border border-gray-300 px-4 py-2">
+            <td className="border-b-2">
                 {isEditing ? (
                     <input
                         type="text"
@@ -116,7 +116,7 @@ export default function ExpenseItem({ id, description, cost, category }) {
                     description
                 )}
             </td>
-            <td className="border border-gray-300 px-4 py-2">
+            <td className="border-b-2">
                 {isEditing ? (
                     <input
                         type="number"
@@ -128,7 +128,7 @@ export default function ExpenseItem({ id, description, cost, category }) {
                     `$${cost}`
                 )}                
             </td>
-            <td className="border border-gray-300 px-4 py-2">
+            <td className="border-b-2">
                 {isEditing ? (
                     <input
                         type="text"
@@ -141,35 +141,35 @@ export default function ExpenseItem({ id, description, cost, category }) {
                 )}
             </td>            
             {isEditing ? (
-                <div>
+                <td className="border-b-2">
                     <button
-                        className="bg-gray-500 hover:bg-gray-600 text-white font-bold px-4 py-2 rounded ml-3"
+                        className="border border-gray-500 text-gray-500 hover:bg-gray-500 hover:text-white font-bold py-2 px-4 rounded"
                         onClick={handleCancelEdit}
                     >
                         Cancel
                     </button>
                     <button
-                        className="bg-green-500 hover:bg-green-600 text-white font-bold px-4 py-2 rounded ml-3"
+                        className="border border-green-500 text-green-500 hover:bg-green-500 hover:text-white font-bold py-2 px-4 rounded ml-3"
                         onClick={handleSaveExpense}
                     >
                         Save
                     </button>
-                </div>
+                </td>
             ) : (
-                <div>
+                <td className="border-b-2">
                     <button
-                        className="bg-blue-500 hover:bg-blue-600 text-white font-bold px-4 py-2 rounded ml-3"
+                        className="border border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white font-bold py-2 px-4 rounded"
                         onClick={handleEditExpense}
                     >
                         Edit
                     </button>
                     <button
-                        className="bg-red-500 hover:bg-red-600 text-white font-bold px-4 py-2 rounded ml-3"
-                        onClick={handleRemoveExpense}
+                        className="border border-red-500 text-red-500 hover:bg-red-500 hover:text-white font-bold py-2 px-4 rounded ml-3"
+                        onClick={handleDeleteExpense}
                     >
-                        Remove
+                        Delete
                     </button>
-                </div>
+                </td>
             )}    
         </tr>
     );
