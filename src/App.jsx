@@ -1,4 +1,3 @@
-import { useContext, useState } from "react";
 import Budget from "./components/Budget/Budget";
 import RemainingBudget from "./components/Budget/RemainingBudget";
 import { ExpenseProvider } from "./components/context/ExpenseContext";
