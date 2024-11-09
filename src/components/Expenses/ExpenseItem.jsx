@@ -45,6 +45,7 @@ export default function ExpenseItem({ id, description, cost, category }) {
         setIsEditing(false);
         setEditedDescription(description);
         setEditedCost(cost);
+        setEditedCategory(category);
     }
     
     return (
