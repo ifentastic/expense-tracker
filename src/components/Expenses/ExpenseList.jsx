@@ -12,30 +12,28 @@ export default function ExpenseList() {
 	}, [expenses]);
 
     function handleChange(event) {
-		const searchResults = expenses.filter((filteredExpense) =>
-            filteredExpense.category.toLowerCase().includes(event.target.value.toLowerCase())
-        );
+		const searchResults = expenses.filter((filteredExpense) => {
+            const searchTerm = event.target.value.toLowerCase();
+
+            // Check if description, cost, or category matches the search term
+            return (
+                filteredExpense.description.toLowerCase().includes(searchTerm) || 
+                filteredExpense.cost.toString().includes(searchTerm) ||
+                filteredExpense.category.toLowerCase().includes(searchTerm) // cost is a number
+            );
+        });
         setFilteredExpenses(searchResults.length > 0 ? searchResults : expenses);
 	}
 
     return (
         <>
-            <select 
-                name="" 
-                id="" 
+            <input
+                id="name"
+                type="text" 
                 className=
-                    "bg-white border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm w-full"
+                    "block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded"
                 onChange={handleChange}
-            >
-                <option value=""></option>
-                <option value="home">Home</option>
-                <option value="utilities">Utilities</option>
-                <option value="auto">Auto</option>
-                <option value="groceries">Groceries</option>
-                <option value="childcare">Childcare</option>
-                <option value="medical">Medical</option>
-                <option value="entertainment">Entertainment</option>
-            </select>
+            />                
             <table className="w-full max-w-full mb-4 bg-transparent">
                 <thead>
                     <tr>
