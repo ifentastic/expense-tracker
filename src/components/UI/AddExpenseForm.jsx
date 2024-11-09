@@ -6,9 +6,10 @@ import ErrorModal from "./ErrorModal";
 export default function AddExpenseForm() {
     const { budget, expenses, dispatch } = useContext(ExpenseContext);
     
-    // Manage state of entered expense description, cost, editing, and error
+    // Manage state of entered expense description, cost, category, editing, and error
     const [enteredDescription, setEnteredDescrption] = useState("");
     const [enteredCost, setEnteredCost] = useState("");
+    const [enteredCategory, setEnteredCategory] = useState("");
     const [isEditing, setIsEditing] = useState(false);
     const [error, setError] = useState(null);
 
@@ -20,13 +21,18 @@ export default function AddExpenseForm() {
         setEnteredCost(event.target.value);
     }
 
+    function categoryChangeHandler(event) {
+        setEnteredCategory(event.target.value);
+    }
+
     // Function to submit the form
     function submitHandler(event) {
         event.preventDefault(); // cancel operation that caused event to be dispatched
         const expenseData = {
             id: uuidv4(),
             description: enteredDescription,
-            cost: +enteredCost
+            cost: +enteredCost,
+            category: enteredCategory
         };
 
         const totalSpent = expenses.reduce((total, item) => {
@@ -51,6 +57,7 @@ export default function AddExpenseForm() {
         });
         setEnteredDescrption("");
         setEnteredCost("");
+        setEnteredCategory("");
         setIsEditing(false);
     }
 
@@ -95,21 +102,14 @@ export default function AddExpenseForm() {
                         </div>
                         <div className="w-full">
                             <label htmlFor="category">Category</label>
-                            <select 
-                                name="" 
-                                id="" 
-                                className=
-                                    "bg-white border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm w-full"
-                            >
-                                <option value=""></option>
-                                <option value="home">Home</option>
-                                <option value="utilities">Utilities</option>
-                                <option value="auto">Auto</option>
-                                <option value="groceries">Groceries</option>
-                                <option value="childcare">Childcare</option>
-                                <option value="medical">Medical</option>
-                                <option value="entertainment">Entertainment</option>
-                            </select>
+                            <input
+                                required
+                                type="text"
+                                className="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded"
+                                id="cost"
+                                value={enteredCategory}
+                                onChange={categoryChangeHandler}
+                            />
                         </div>
                     </div>
                     <div className="flex justify-end">
