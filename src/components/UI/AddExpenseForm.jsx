@@ -39,26 +39,22 @@ export default function AddExpenseForm() {
             return total += item.cost;
         }, 0);
 
-        // Check if cost exceeds the budget
-        if (expenseData.cost > budget) {
-            setError("Cost exceeds the budget! Please remove the expense or reduce the cost.");
-            return;
+        // Check if cost or total amount spent exceeds the budget
+        if (expenseData.cost > budget || totalSpent + expenseData.cost > budget) {
+            setError("Cost or total expenses exceed the budget! Please remove the expense or reduce the cost.");
+            // Save expense data and clear it upon submission
+            dispatch({
+                type: "ADD_EXPENSE",
+                payload: expenseData
+            });
+            setEnteredDescrption("");
+            setEnteredCost("");
+            setEnteredCategory("");
+            setIsEditing(false);
         }
 
-        // Check if total amount spent exceeds the budget
-        if (totalSpent + expenseData.cost > budget) {
-            setError("Total expenses exceed the budget! Please adjust your expenses.");
-            return;
-        }
-        // Save expense data and clear it upon submission
-        dispatch({
-            type: "ADD_EXPENSE",
-            payload: expenseData
-        });
-        setEnteredDescrption("");
-        setEnteredCost("");
-        setEnteredCategory("");
-        setIsEditing(false);
+        
+        
     }
 
     function startEditingHandler() {
