@@ -42,16 +42,18 @@ export default function AddExpenseForm() {
         // Check if cost or total amount spent exceeds the budget
         if (expenseData.cost > budget || totalSpent + expenseData.cost > budget) {
             setError("Cost or total expenses exceed the budget! Please remove the expense or reduce the cost.");
-            // Save expense data and clear it upon submission
-            dispatch({
-                type: "ADD_EXPENSE",
-                payload: expenseData
-            });
-            setEnteredDescrption("");
-            setEnteredCost("");
-            setEnteredCategory("");
-            setIsEditing(false);
+            return;
+            
         }
+        // Save expense data and clear it upon submission
+        dispatch({
+            type: "ADD_EXPENSE",
+            payload: expenseData
+        });
+        setEnteredDescrption("");
+        setEnteredCost("");
+        setEnteredCategory("");
+        setIsEditing(false);
 
         
         
