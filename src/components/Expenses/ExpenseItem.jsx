@@ -2,46 +2,51 @@ import { useContext, useState } from "react";
 import { ExpenseContext } from "../context/ExpenseContext";
 
 export default function ExpenseItem({ id, description, cost, category }) {
-    const { dispatch } = useContext(ExpenseContext);
+    // Access context methods for editing and deleting expenses
+    const { editExpense, deleteExpense } = useContext(ExpenseContext);
 
-    // Manage state of edited description, cost, and category
+    // Local state to manage editeing and values of the expense item
     const [isEditing, setIsEditing] = useState(false);
     const [editedDescription, setEditedDescription] = useState(description);
     const [editedCost, setEditedCost] = useState(cost);
     const [editedCategory, setEditedCategory] = useState(category);
     
+    // Call deleteExpense function to delete expense item
     function handleDeleteExpense() {
-        dispatch({
-            type: "DELETE_EXPENSE",
-            payload: id
-        });
+        deleteExpense(id);
     }
 
-    function handleEditExpense() {
-        setIsEditing(true);
+    // Handler for state variables based on user input
+    function handleEditExpense(event) {
+        const { name, value } = event.target;
+        if (name === "description") {
+            setEditedDescription(value);
+        }
+
+        if (name === "cost") {
+            setEditedCost(value);
+        }
+
+        if (name === "category") {
+            setEditedCategory(value);
+        }
     }
 
-    function handleEditDescription(event) {
-        setEditedDescription(event.target.value);
-    }
+    // Function to save expense
+    function handleSaveExpense(event) {
+        event.preventDefault(); // Prevent default form submission
+        const updatedExpense = {
+            description: editedDescription,
+            cost: parseFloat(editedCost).toFixed(2),
+            category: editedCategory
+        };
 
-    function handleEditCost(event) {
-        setEditedCost(event.target.value);
-    }
-
-    function handleEditCategory(event) {
-        setEditedCategory(event.target.value);
-    }
-
-    function handleSaveExpense() {
-        dispatch({
-            type: "EDIT_EXPENSE",
-            payload: { id, description: editedDescription, cost: +editedCost, category: editedCategory }
-        });
+        editExpense(id, updatedExpense); // Call editExpense function
         setIsEditing(false);
     }
 
     function handleCancelEdit() {
+        // Reset editing state and restore original values
         setIsEditing(false);
         setEditedDescription(description);
         setEditedCost(cost);
@@ -54,8 +59,9 @@ export default function ExpenseItem({ id, description, cost, category }) {
                 {isEditing ? (
                     <input
                         type="text"
+                        name="description"
                         value={editedDescription}
-                        onChange={handleEditDescription}
+                        onChange={handleEditExpense}
                         placeholder="Expense Description"
                     />
                 ) : (
@@ -66,8 +72,9 @@ export default function ExpenseItem({ id, description, cost, category }) {
                 {isEditing ? (
                     <input
                         type="number"
+                        name="cost"
                         value={editedCost}
-                        onChange={handleEditCost}
+                        onChange={handleEditExpense}
                         placeholder="Expense Cost"
                     />
                 ) : (
@@ -78,8 +85,9 @@ export default function ExpenseItem({ id, description, cost, category }) {
                 {isEditing ? (
                     <input
                         type="text"
+                        name="category"
                         value={editedCategory}
-                        onChange={handleEditCategory}
+                        onChange={handleEditExpense}
                         placeholder="Expense Category"
                     />
                 ) : (
@@ -105,7 +113,7 @@ export default function ExpenseItem({ id, description, cost, category }) {
                 <td className="border-b-2">
                     <button
                         className="border border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white font-bold py-2 px-4 rounded"
-                        onClick={handleEditExpense}
+                        onClick={() => setIsEditing(true)}
                     >
                         Edit
                     </button>
