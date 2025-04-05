@@ -14,11 +14,11 @@ export default function ExpenseBarChart() {
         // Iterate through expenses to categorize expenses and sum costs
         expenses.forEach(expense => {
             if (categorizedData[expense.category]) {
-                categorizedData[expense.category] += expense.cost;
+                categorizedData[expense.category] += parseFloat(expense.cost);
             }
 
             else {
-                categorizedData[expense.category] = expense.cost;
+                categorizedData[expense.category] = parseFloat(expense.cost);
             }
         });
 
