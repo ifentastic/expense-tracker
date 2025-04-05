@@ -4,25 +4,26 @@ import EditBudget from "./EditBudget";
 import ViewBudget from "./ViewBudget";
 
 export default function Budget() {
+    // Access budget from context
     const { budget, dispatch } = useContext(ExpenseContext);
     
     // Manage editing state
     const [isEditing, setIsEditing] = useState(false);
 
     function handleEdit() {
-        setIsEditing(true);
+        setIsEditing(true); // set editing mode to true
     }
 
     function handleSave(value) {
         dispatch({
-            type: "EDIT_BUDGET",
-            payload: value
+            type: "EDIT_BUDGET", // Action type for editing budget
+            payload: value // New budget value to be saved
         });
-        setIsEditing(false);
+        setIsEditing(false); // Exit editing mode
     }
 
     function handleCancel() {
-        setIsEditing(false);
+        setIsEditing(false); // Exit editing mode without saving
     }
     
     return (
@@ -33,7 +34,7 @@ export default function Budget() {
                 <EditBudget onSave={handleSave} budget={budget} onCancel={handleCancel} />
             ) : (
                 <ViewBudget onEdit={handleEdit} budget={budget} />
-            )}
+            )} {/* conditional rendering based on editing state */}
         </div>
     );
 }
