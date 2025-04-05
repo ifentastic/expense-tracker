@@ -2,10 +2,10 @@ import { useState } from "react";
 
 export default function EditBudget({ budget, onSave, onCancel }) {
     // use initial budget to edit
-    const [value, setValue] = useState(budget);
+    const [value, setValue] = useState(budget); // Initialize state with the budget prop
 
     function handleEditValue(event) {
-        setValue(event.target.value);
+        setValue(event.target.value); // Update state with the input value
     }
 
     return (
