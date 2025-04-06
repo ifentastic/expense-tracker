@@ -4,71 +4,80 @@ import { ExpenseContext } from "../context/ExpenseContext";
 import ErrorModal from "./ErrorModal";
 
 export default function AddExpenseForm() {
-    const { budget, expenses, dispatch } = useContext(ExpenseContext);
+    // Access budget, expenses and context method for adding an expense item
+    const { budget, expenses, addExpense } = useContext(ExpenseContext);
     
-    // Manage state of entered expense description, cost, category, editing, and error
-    const [enteredDescription, setEnteredDescrption] = useState("");
-    const [enteredCost, setEnteredCost] = useState("");
-    const [enteredCategory, setEnteredCategory] = useState("");
+    // Manage state of new expense with description, cost, and category
+    const [newExpense, setNewExpense] = useState({
+        description: "",
+        cost: "",
+        category: ""
+    });
+
+    // Manage editing, loading, and error states
     const [isEditing, setIsEditing] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
-
-    function descrptionChangeHandler(event) {
-        setEnteredDescrption(event.target.value);
-    }
-
-    function costChangeHandler(event) {
-        setEnteredCost(event.target.value);
-    }
-
-    function categoryChangeHandler(event) {
-        setEnteredCategory(event.target.value);
+    
+    // Function to add an expense
+    function changeHandler(event) {
+        // Update the newExpense state whenever an input field changes 
+        // Maintain the existing state while updating the specific field that has changed
+        const { name, value } = event.target;
+        setNewExpense({ ...newExpense, [name]: value});
     }
 
     // Function to submit the form
-    function submitHandler(event) {
-        event.preventDefault(); // cancel operation that caused event to be dispatched
-        const expenseData = {
-            id: uuidv4(),
-            description: enteredDescription,
-            cost: +enteredCost,
-            category: enteredCategory
-        };
+    async function submitHandler(event) {
+        event.preventDefault(); // prevent default submission behavior
+        setIsLoading(true);
+        setError(null);
 
         const totalSpent = expenses.reduce((total, item) => {
             return total += item.cost;
         }, 0);
 
-        // Check if cost or total amount spent exceeds the budget
-        if (expenseData.cost > budget || totalSpent + expenseData.cost > budget) {
-            setError("Cost or total expenses exceed the budget! Please remove the expense or reduce the cost.");
-            return;
-            
-        }
-        // Save expense data and clear it upon submission
-        dispatch({
-            type: "ADD_EXPENSE",
-            payload: expenseData
+        try {
+            // Format cost to 2 decimal places
+            const formattedCost = parseFloat(newExpense.cost).toFixed(2);
+
+            // Generate unique ID and include formatted cost
+            const expenseWithId = {
+                ...newExpense, id: uuidv4(),
+                cost: formattedCost
+            };
+            await addExpense(expenseWithId);
+            setNewExpense({ description: "", cost: "", category: "" });
+            setIsEditing(false); // Hide form after submission
+          } catch (error) {
+            // Check if cost or total amount spent exceeds the budget
+            if (newExpense.cost > budget || totalSpent + newExpense.cost > budget) {
+                setError("Cost or total expenses exceed the budget! Please remove the expense or reduce the cost.", error);    
+            }
+          } finally {
+            setIsLoading(false);
+          }    
+    }
+
+    // Function to start editing
+    function handleStartEdit() {
+        setIsEditing(true); // Show form on button click
+    }
+
+    // Function to cancel the edit
+    function handleCancelEdit() {
+        // Clear expense data
+        setNewExpense({
+            description: "", 
+            cost: "", 
+            category: ""
         });
-        setEnteredDescrption("");
-        setEnteredCost("");
-        setEnteredCategory("");
-        setIsEditing(false);
-
-        
-        
+        setIsEditing(false); // Hide form on cancel
     }
 
-    function startEditingHandler() {
-        setIsEditing(true);
-    }
-
-    function stopEditingHandler() {
-        setIsEditing(false);
-    }
-
+    // Function to close error modal
     function closeErrorHandler() {
-        setError(null);
+        setError(null); // Clear error message
     }
 
     return (
@@ -82,9 +91,9 @@ export default function AddExpenseForm() {
                                 required
                                 type="text"
                                 className="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded"
-                                id="name"
-                                value={enteredDescription}
-                                onChange={descrptionChangeHandler}
+                                name="description"
+                                value={newExpense.description}
+                                onChange={changeHandler}
                             />
                         </div>
                         <div className="w-full">
@@ -93,9 +102,9 @@ export default function AddExpenseForm() {
                                 required
                                 type="number"
                                 className="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded"
-                                id="cost"
-                                value={enteredCost}
-                                onChange={costChangeHandler}
+                                name="cost"
+                                value={newExpense.cost}
+                                onChange={changeHandler}
                             />
                         </div>
                         <div className="w-full">
@@ -104,9 +113,9 @@ export default function AddExpenseForm() {
                                 required
                                 type="text"
                                 className="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded"
-                                id="cost"
-                                value={enteredCategory}
-                                onChange={categoryChangeHandler}
+                                name="category"
+                                value={newExpense.category}
+                                onChange={changeHandler}
                             />
                         </div>
                     </div>
@@ -114,7 +123,7 @@ export default function AddExpenseForm() {
                         <button
                             type="submit"
                             className="inline-block align-middle text-center font-bold select-none border-none whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-white text-blue-600 hover:bg-white mt-3"
-                            onClick={stopEditingHandler}
+                            onClick={handleCancelEdit}
                         >
                             Cancel
                         </button>
@@ -129,7 +138,7 @@ export default function AddExpenseForm() {
             ) : (
                 <button 
                     className="bg-blue-500 hover:bg-blue-600 text-white font-bold p-4 m-8 w-64 max-w-full rounded-xl text-center"
-                    onClick={startEditingHandler}
+                    onClick={handleStartEdit}
                 >
                     Add Expense
                 </button>
