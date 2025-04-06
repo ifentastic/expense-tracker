@@ -1,9 +1,12 @@
-import { createContext, useReducer } from "react";
+import { createContext, useReducer, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
+import axios from "axios";
 
 // Expense reducer to update the state based on the action
 export function ExpenseReducer(state, action) {
     switch (action.type) {
+        case "SET_EXPENSES":
+            return {...state, expenses: action.payload };
         case "ADD_EXPENSE":
             return {
                 ...state,
@@ -58,13 +61,62 @@ export function ExpenseProvider({ children }) {
     // Set up app state by taking a reducer and an initial state
     const [state, dispatch] = useReducer(ExpenseReducer, initialState);
 
+    // Fetch expenses from backend when the component mounts
+    useEffect(() => {
+        async function fetchExpenses() {
+            try {
+                const response = await axios.get("http://localhost:5000/expenses");
+                dispatch({ type: "SET_EXPENSES", payload: response.data });
+            } catch (error) {
+                console.error("Error fetching expenses:", error);
+            }
+        };
+
+        fetchExpenses();
+    }, []);
+
+    // Function to add an expense
+    async function addExpense(expense) {
+        try {
+            const response = await axios.post("http://localhost:5000/expenses", expense);
+            dispatch({ type: "ADD_EXPENSE", payload: response.data }); // Assuming response data contains the added expense
+        } catch (error) {
+            console.error("Error adding expense:", error);
+        }
+    };
+
+    // Function to delete an expense
+    async function deleteExpense(id) {
+        try {
+            await axios.delete(`http://localhost:5000/expenses/${id}`);
+            dispatch({ type: "DELETE_EXPENSE", payload: id });
+        } catch (error) {
+            console.error("Error deleting expense:", error);
+        }
+    }
+
+    // Function to edit an expense
+    async function editExpense(id, updatedExpense) {
+        try {
+            const response = await axios.put(
+                `http://localhost:5000/expenses/${id}`, updatedExpense
+            );
+            dispatch({ type: "EDIT_EXPENSE", payload: response.data });
+        } catch (error) {
+            console.error("Error editing expense:", error);
+        }
+    }
+
     // Return context. Pass in values
     return (
         <ExpenseContext.Provider
             value={{
                 expenses: state.expenses,
                 budget: state.budget,
-                dispatch
+                dispatch,
+                addExpense,
+                deleteExpense,
+                editExpense
             }}
         >
             {children}
