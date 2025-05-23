@@ -1,4 +1,6 @@
 export default function ViewBudget({ budget, onEdit }) {
+    // https://github.com/chrisblakely01/react-budget-app/blob/main/src/components/ViewBudget.js
+    // Render the current budget and a button for editing it
     return (
         <>
             <span>Budget: ${budget}</span>
