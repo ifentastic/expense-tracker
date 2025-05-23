@@ -11,12 +11,13 @@ export default function ExpenseItem({ id, description, cost, category }) {
     const [editedCost, setEditedCost] = useState(cost);
     const [editedCategory, setEditedCategory] = useState(category);
     
+    // Lines 16-55 were provided by Copilot
     // Call deleteExpense function to delete expense item
     function handleDeleteExpense() {
         deleteExpense(id);
     }
 
-    // Handler for state variables based on user input
+    // Handler for value state management based on user input
     function handleEditExpense(event) {
         const { name, value } = event.target;
         if (name === "description") {
@@ -53,6 +54,10 @@ export default function ExpenseItem({ id, description, cost, category }) {
         setEditedCategory(category);
     }
     
+    /* Render expense items in a tabular format (provided by ChatGPT),
+    along with buttons for editing or deleting an expense item or
+    buttons for saving or cancelling the edit (provided by https://www.youtube.com/watch?v=N7iSU2dn9TU),
+    depending on editing state */
     return (
         <tr>
             <td className="border-b-2">
