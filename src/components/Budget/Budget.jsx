@@ -3,7 +3,9 @@ import { ExpenseContext } from "../context/ExpenseContext";
 import EditBudget from "./EditBudget";
 import ViewBudget from "./ViewBudget";
 
+
 export default function Budget() {
+    // https://github.com/chrisblakely01/react-budget-app/blob/main/src/components/Budget.js
     // Access budget from context
     const { budget, dispatch } = useContext(ExpenseContext);
     
@@ -14,6 +16,7 @@ export default function Budget() {
         setIsEditing(true); // set editing mode to true
     }
 
+    // Function to save the new budget value
     function handleSave(value) {
         dispatch({
             type: "EDIT_BUDGET", // Action type for editing budget
@@ -22,6 +25,7 @@ export default function Budget() {
         setIsEditing(false); // Exit editing mode
     }
 
+    // Function to cancel budget edit (my work)
     function handleCancel() {
         setIsEditing(false); // Exit editing mode without saving
     }
