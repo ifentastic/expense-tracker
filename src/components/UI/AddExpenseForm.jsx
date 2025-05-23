@@ -4,6 +4,7 @@ import { ExpenseContext } from "../context/ExpenseContext";
 import ErrorModal from "./ErrorModal";
 
 export default function AddExpenseForm() {
+    // The following code was provided by Copilot
     // Access budget, expenses and context method for adding an expense item
     const { budget, expenses, addExpense } = useContext(ExpenseContext);
     
