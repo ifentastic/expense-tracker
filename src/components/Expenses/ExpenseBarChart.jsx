@@ -4,6 +4,7 @@ import { ExpenseContext } from "../context/ExpenseContext";
 
 
 export default function ExpenseBarChart() {
+    // The following code was provided by https://workik.com/.
     // Access expenses from the context
     const { expenses } = useContext(ExpenseContext);
 
