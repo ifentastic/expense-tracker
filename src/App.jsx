@@ -1,13 +1,12 @@
-import Budget from "./components/Budget/Budget";
 import RemainingBudget from "./components/Budget/RemainingBudget";
-import { ExpenseProvider } from "./components/context/ExpenseContext";
-import ExpenseBarChart from "./components/Expenses/ExpenseBarChart";
-import ExpenseList from "./components/Expenses/ExpenseList";
 import ExpenseTotal from "./components/Expenses/ExpenseTotal";
+import ExpenseList from "./components/Expenses/ExpenseList";
 import AddExpenseForm from "./components/UI/AddExpenseForm";
+import Budget from "./components/Budget/Budget";
+import ExpenseBarChart from "./components/Expenses/ExpenseBarChart";
+import { ExpenseProvider } from "./components/context/ExpenseContext";
 
-
-function App() {
+export default function App() {
   return (
     <ExpenseProvider>
       <div className="container mx-auto sm:px-4">
@@ -39,5 +38,3 @@ function App() {
     </ExpenseProvider>    
   );
 }
-
-export default App;
