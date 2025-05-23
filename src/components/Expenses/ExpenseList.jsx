@@ -3,6 +3,7 @@ import { ExpenseContext } from "../context/ExpenseContext";
 import ExpenseItem from "./ExpenseItem";
 
 export default function ExpenseList() {
+    // https://github.com/chrisblakely01/react-budget-app/blob/main/src/components/ExpenseList.js
     const { expenses } = useContext(ExpenseContext);
 
     const [filteredExpenses, setFilteredExpenses] = useState(expenses || []);
@@ -15,7 +16,7 @@ export default function ExpenseList() {
 		const searchResults = expenses.filter((filteredExpense) => {
             const searchTerm = event.target.value.toLowerCase();
 
-            // Check if description, cost, or category matches the search term
+            // Check if description, cost, or category matches the search term (my work)
             return (
                 filteredExpense.description.toLowerCase().includes(searchTerm) || 
                 filteredExpense.cost.toString().includes(searchTerm) ||
@@ -25,6 +26,7 @@ export default function ExpenseList() {
         setFilteredExpenses(searchResults.length > 0 ? searchResults : expenses);
 	}
 
+    // Render the list of expenses in a tabular format (my work)
     return (
         <>
             <input
