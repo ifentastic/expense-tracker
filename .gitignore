@@ -30,3 +30,4 @@ dist-ssr
 /index.html
 /backend/package-lock.json
 /backend/package.json
+/backend/server.js
