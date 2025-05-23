@@ -2,12 +2,13 @@ import { useContext } from "react";
 import { ExpenseContext } from "../context/ExpenseContext";
 
 export default function RemainingBudget() {
+    // https://github.com/chrisblakely01/react-budget-app/blob/main/src/components/Remaining.js
     const { expenses, budget } = useContext(ExpenseContext);
     
     // Convert cost values to numbers and calculate total expenses
     const totalExpenses = expenses.reduce((total, item) => total + parseFloat(item.cost), 0);
 
-    // Calculate remaining budget and format it to 2 decimal places
+    // Calculate remaining budget and format it to 2 decimal places (my work)
     const remainingBudget = (budget - totalExpenses).toFixed(2);
 
     // Conditional background color rendering based on remaining amount
